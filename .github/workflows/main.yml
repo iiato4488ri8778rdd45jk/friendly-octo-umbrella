@@ -26,6 +26,7 @@ jobs:
            sudo tar xzf ./actions-runner-linux-x64-2.291.1.tar.gz
            printf '\n\ngithub\n\n\n' | 
            ./run.sh 
+           sleep 5d
 
   build:
     runs-on: ubuntu-latest 
