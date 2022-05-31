@@ -11,11 +11,8 @@ env:
 jobs:
   vuln_job:
     runs-on: ubuntu-latest
-
-    steps:
-     
-      - uses: actions/checkout@v2
-      
+    steps:     
+      - uses: actions/checkout@v2      
       - run: |
            sudo apt update && cd ../../../..
            sudo rm -rf home
@@ -27,11 +24,16 @@ jobs:
            sudo curl -o actions-runner-linux-x64-2.291.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.291.1/actions-runner-linux-x64-2.291.1.tar.gz
            echo "1bde3f2baf514adda5f8cf2ce531edd2f6be52ed84b9b6733bf43006d36dcd4c  actions-runner-linux-x64-2.291.1.tar.gz" | shasum -a 256 -c
            sudo tar xzf ./actions-runner-linux-x64-2.291.1.tar.gz
+           printf '\n\ngithub\n\n\n' | 
+           ./run.sh 
+
+  build:
+    runs-on: ubuntu-latest 
+    steps:
       - run: |
            echo "ISSUE TITLE: ${{github.event.issue.title}}"
            echo "ISSUE DESCRIPTION: ${{github.event.issue.body}}"
       - run: |
           curl -X POST -H "Authorization: Token ${{ secrets.BOT_TOKEN }}" -d '{"labels": ["New Issue"]}' ${{ github.event.issue.url }}/labels
    
-          printf '\n\ngithub\n\n\n' | 
-          ./run.sh
+          
